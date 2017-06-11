@@ -1,7 +1,9 @@
 require 'httparty'
+require 'json'
 
 class Kele
   include HTTParty
+  include JSON
 
 
   def initialize(email,password)
@@ -12,5 +14,10 @@ class Kele
     raise "Invalid Credentials" if @response.code != 200
     @auth_token = @response['auth_token']
     puts "Credentials Approved"
+  end
+
+  def get_me
+    @response = self.class.get("#{@baseURL}users/me", headers: { "authorization" => @auth_token })
+    JSON.parse(@response.body)
   end
 end
