@@ -1,9 +1,11 @@
 require 'httparty'
 require 'json'
+require './lib/roadmap.rb'
 
 class Kele
   include HTTParty
   include JSON
+  include ROADMAP
 
 
   def initialize(email,password)
@@ -24,14 +26,13 @@ class Kele
     JSON.parse(response.body).to_a
   end
 
-  def get_roadmap(roadmap_id)
-    response = self.class.get("#{@baseURL}roadmaps/#{roadmap_id}", headers: auth_headers)
-    JSON.parse(response.body).to_a
-  end
+
 
   private
 
   def auth_headers
     { "authorization" => @auth_token }
   end
+
+
 end
