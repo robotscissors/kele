@@ -1,4 +1,4 @@
-module ROADMAP
+module Roadmap
 
   def get_roadmap(roadmap_id)
     response = self.class.get("#{@baseURL}roadmaps/#{roadmap_id}", headers: auth_headers)
