@@ -2,12 +2,14 @@ require 'httparty'
 require 'json'
 require_relative './roadmap.rb'
 require_relative './messaging.rb'
+require_relative './checkpoint.rb'
 
 class Kele
   include HTTParty
   include JSON
   include Roadmap
   include Messages
+  include Checkpoint
 
 
   def initialize(email,password)
@@ -20,6 +22,7 @@ class Kele
 
   def get_me
     response = self.class.get("#{@baseURL}users/me", headers: auth_headers)
+    @enrollment_id = response["current_enrollment"]["id"]
     JSON.parse(response.body)
   end
 
