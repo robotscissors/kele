@@ -1,8 +1,14 @@
 require 'httparty'
 require 'json'
+require 'vcr'
 require_relative './roadmap.rb'
 require_relative './messaging.rb'
 require_relative './checkpoint.rb'
+
+VCR.configure do |config|
+  config.cassette_library_dir = "fixtures/vcr_cassettes"
+  config.hook_into :webmock # or :fakeweb
+end
 
 class Kele
   include HTTParty
